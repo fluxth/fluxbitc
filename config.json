@@ -57,7 +57,7 @@
                     "rate": "${fps_rate}",
                     "font": "D_TIMECODE",
                     "x": "w-tw-95",
-                    "y": 90
+                    "y": 85
                 },
                 {
                     "text": "${heading_title}",
