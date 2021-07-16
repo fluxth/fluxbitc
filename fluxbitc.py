@@ -79,6 +79,7 @@ def main() -> int:
 
     video_stream: Optional[dict] = None
     audio_stream: Optional[dict] = None
+    embedded_timecode: Optional[dict] = None
 
     # select first stream
     # TODO: Add option to select stream from media file
@@ -89,6 +90,14 @@ def main() -> int:
 
         if audio_stream is None and stream["codec_type"] == "audio":
             audio_stream = stream
+            continue
+
+        if (
+            embedded_timecode is None
+            and stream["codec_type"] == "data"
+            and stream.get("codec_tag_string", "") == "tmcd"
+        ):
+            embedded_timecode = stream
             continue
 
     if video_stream is None:
@@ -102,6 +111,9 @@ def main() -> int:
             os.path.basename(output_filepath), video_stream, audio_stream, format
         )
     )
+
+    # hydrate embedded timecode
+    config.hydrate_userdata(extract_embedded_timecode_start(embedded_timecode))
 
     # then hydrate from user provided data arg
     config.hydrate_userdata(args.data)
@@ -232,8 +244,8 @@ def build_userdata_from_metadata(
     format: Dict[str, Any],
 ) -> Dict[str, str]:
 
-    fps_rate = video_stream["avg_frame_rate"]
-    if fps_rate != video_stream["r_frame_rate"]:
+    fps_rate = video_stream["r_frame_rate"]
+    if fps_rate != video_stream["avg_frame_rate"]:
         raise BitcException("Variable framerate video streams are not supported")
 
     timestamp = datetime.datetime.utcnow().isoformat()
@@ -266,6 +278,33 @@ def build_userdata_from_metadata(
         "info_1": info_1,
         "info_2": info_2,
     }
+
+
+def extract_embedded_timecode_start(
+    embedded_timecode: Optional[Dict[str, Any]]
+) -> Dict[str, str]:
+
+    if embedded_timecode is None:
+        return {}
+
+    if embedded_timecode.get("start_pts", None) != 0:
+        print(
+            "WARNING: Found embedded timecode but ignoring because it does not "
+            + "start at the beginning of the media file",
+            file=sys.stderr,
+        )
+        return {}
+
+    tags = embedded_timecode.get("tags", None)
+    if tags is None or "timecode" not in tags.keys():
+        return {}
+
+    etc_start = tags.get("timecode", None)
+    if etc_start is None:
+        return {}
+
+    print(f"Embedded timecode detected: {etc_start}")
+    return {"timecode_start": etc_start}
 
 
 def build_ffmpeg_command(

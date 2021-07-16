@@ -4,6 +4,7 @@ A burn-in timecode and video conversion utility for post-production proxy makers
 
 ## Features
 
+- Automatic timecode detection from timecode stream embedded in the source video file
 - Configurable burn-in timecode styling in `config.json`
 - Included preset for the "hurry" users
 - Extensible, create your own preset and save it for later uses
@@ -27,7 +28,7 @@ You will need these software installed on your computer to run fluxbitc:
 - ffmpeg
 - ffprobe
 
-Fortunately, on macOS you can run:
+Fortunately on macOS, you can run:
 ```bash
 ./install.sh
 ```
@@ -35,7 +36,7 @@ in your terminal to *automatically* install the required dependencies.
 
 ## Examples
 
-To burn-in timecode using the default preset, use:
+To burn-in the timecode using the default preset, use:
 ```bash
 ./fluxbitc.py -i input.mp4 output.mov
 ```
