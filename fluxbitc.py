@@ -241,8 +241,11 @@ def build_userdata_from_metadata(
     fps = fps_rate
     if "/" in fps:
         fps_n, fps_d = fps.split("/")
-        fps = float(fps_n) / float(fps_d)
-        fps = round(fps, 3)
+        if fps_d == "1":
+            fps = int(fps)
+        else:
+            fps = float(fps_n) / float(fps_d)
+            fps = round(fps, 3)
     else:
         fps = int(fps)
 
@@ -322,7 +325,7 @@ def build_ffmpeg_command(
     if args.container != "auto":
         cmd += ["-f", args.container]
 
-    # override output checl
+    # override output check
     if args.y is True:
         cmd.append("-y")
 
