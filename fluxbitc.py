@@ -9,6 +9,8 @@ import datetime
 
 from typing import Dict, List, Union, Any, Optional
 
+VERSION = "1.0.0"
+
 
 class Config:
     filepath: str
@@ -65,6 +67,7 @@ class Config:
 
 
 def main() -> int:
+    print(f"fluxbitc v{VERSION}")
     args = init_arg_parser().parse_args()
     config = Config(args.config)
 

@@ -67,7 +67,7 @@ All the settings are customizable, too!
 
 ![Verbose Preset Customized](https://raw.githubusercontent.com/fluxTH/fluxbitc/main/docs/screenshot_verbose_custom.png)
 
-To encode the output file to a different video and audio codec at specified bitrates, use:
+To encode the output file to a different video and audio codec at some specified bitrates, use:
 ```bash
 ./fluxbitc.py -i input.mp4 -vc hevc_videotoolbox -vb 5M -ac aac_at -ab 128k output.mov
 ```
@@ -107,7 +107,7 @@ To encode into other ProRes variants, use:
 ./fluxbitc.py -i input.mp4 -vp 5 output.mov
 ```
 
-To encode into H.264 codec, with a bitrate of 3 Mbps, use:
+To encode into H.264 codec, with the bitrate of 3 Mbps, use:
 ```bash
 ./fluxbitc.py -i input.mp4 -vc libx264 -vb 3M output.mov
 ```
