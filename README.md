@@ -1,6 +1,6 @@
 # fluxbitc
 
-A burn-in timecode and video conversion utility for film post-production proxy makers
+A burn-in timecode and video conversion utility for post-production proxy makers
 
 ## Features
 
@@ -14,17 +14,24 @@ A burn-in timecode and video conversion utility for film post-production proxy m
 - Ability to discard or convert embedded audio to other codecs (see examples)
 - Scale your media up/down to 1920x1080 or 1280x720 for easier handling in post-production [To be implemented]
 
-## Dependencies
+## Installation
 
+### Download
+
+Clone this repository or [get the latest zipball here](https://github.com/fluxTH/fluxbitc/archive/refs/heads/main.zip).
+
+### Dependencies
+
+You will need these software installed on your computer to run fluxbitc:
 - python3
 - ffmpeg
 - ffprobe
 
-On macOS, run
+Fortunately, on macOS you can run:
 ```bash
 ./install.sh
 ```
-in your terminal to automatically install the required dependencies.
+in your terminal to *automatically* install the required dependencies.
 
 ## Examples
 
@@ -59,19 +66,64 @@ All the settings are customizable, too!
 
 ![Verbose Preset Customized](https://raw.githubusercontent.com/fluxTH/fluxbitc/main/docs/screenshot_verbose_custom.png)
 
-To encode the output file to a different video and audio codec, use:
+To encode the output file to a different video and audio codec at specified bitrates, use:
 ```bash
 ./fluxbitc.py -i input.mp4 -vc hevc_videotoolbox -vb 5M -ac aac_at -ab 128k output.mov
 ```
 
+See the list of avaliable video and audio codecs at the [ffmpeg codecs documentation](https://ffmpeg.org/ffmpeg-codecs.html).
+
 To discard the audio completely, use:
 ```bash
-./fluxbitc.py -i input.mp4 output.mov -ac off
+./fluxbitc.py -i input.mp4 -ac off output.mov
 ```
 
 To force an output file container format, use:
 ```bash
-./fluxbitc.py -i input.mp4 output.ts --container mpegts
+./fluxbitc.py -i input.mp4 --container mpegts output.ts
+```
+
+### Frequent Usages
+
+To encode into other ProRes variants, use:
+```bash
+# This will output ProRes Proxy
+./fluxbitc.py -i input.mp4 -vp 0 output.mov
+
+# This will output ProRes LT
+./fluxbitc.py -i input.mp4 -vp 1 output.mov
+
+# This will output ProRes 422 (Standard)
+./fluxbitc.py -i input.mp4 -vp 2 output.mov
+
+# This will output ProRes 422 HQ
+./fluxbitc.py -i input.mp4 -vp 3 output.mov
+
+# This will output ProRes 4444
+./fluxbitc.py -i input.mp4 -vp 4 output.mov
+
+# This will output ProRes 4444 XQ
+./fluxbitc.py -i input.mp4 -vp 5 output.mov
+```
+
+To encode into H.264 codec, with a bitrate of 3 Mbps, use:
+```bash
+./fluxbitc.py -i input.mp4 -vc libx264 -vb 3M output.mov
+```
+
+In newer Macs, you can encode to H.264 using the hardware encoder for faster encode speed:
+```bash
+./fluxbitc.py -i input.mp4 -vc h264_videotoolbox -vb 5M output.mov
+```
+
+To encode only range 00:00:05:00 to 00:01:00:00, use:
+```bash
+./fluxbitc.py -i input.mp4 output.mov --flags '-ss 00:00:05 -to 00:01:00'
+```
+
+To force the output audio to PCM 24-bit for sound post-production:
+```bash
+./fluxbitc.py -i input.mp4 -ac pcm_s24le output.mov
 ```
 
 Feel free to play around! Consult the Usage section and the `config.json` file for more info :)
@@ -123,4 +175,4 @@ optional arguments:
 
 -----
 
-© 2020 fluxth. Released under the GNU GPL v3.
+© 2021 fluxth. Released under the GNU GPL v3.
