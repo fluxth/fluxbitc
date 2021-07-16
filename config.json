@@ -1,0 +1,135 @@
+{
+    "path": {
+        "ffmpeg": "ffmpeg",
+        "ffprobe": "ffprobe"
+    },
+    "colors": {
+        "white_translucent": "0xffffffdd",
+        "yellow": "0xffff66ff"
+    },
+    "fonts": {
+        "D_TIMECODE": {
+            "fontfile": "/System/Library/Fonts/Avenir.ttc",
+            "fontsize": 64,
+            "fontcolor": "white_translucent"
+        },
+        "D_TITLE": {
+            "fontfile": "/System/Library/Fonts/Avenir.ttc",
+            "fontsize": 48,
+            "fontcolor": "white_translucent"
+        },
+        "V_CENTER_TITLE": {
+            "fontfile": "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
+            "fontsize": 48,
+            "fontcolor": "yellow",
+            "borderw": 3
+        },
+        "V_CENTER_SUB": {
+            "fontfile": "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
+            "fontsize": 32,
+            "fontcolor": "yellow",
+            "borderw": 3
+        },
+        "V_TITLE": {
+            "fontfile": "/System/Library/Fonts/HelveticaNeue.ttc",
+            "fontsize": 72,
+            "fontcolor": "yellow",
+            "borderw": 3
+        },
+        "V_SUB": {
+            "fontfile": "/System/Library/Fonts/Supplemental/Arial.ttf",
+            "fontsize": 32,
+            "fontcolor": "yellow",
+            "borderw": 2
+        },
+        "V_INFO": {
+            "fontfile": "/System/Library/Fonts/Supplemental/Arial Italic.ttf",
+            "fontsize": 32,
+            "fontcolor": "yellow",
+            "borderw": 2
+        }
+    },
+    "presets": {
+        "default": {
+            "items": [
+                {
+                    "timecode": "${timecode_start}",
+                    "rate": "${fps_rate}",
+                    "font": "D_TIMECODE",
+                    "x": "w-tw-95",
+                    "y": 90
+                },
+                {
+                    "text": "${heading_title}",
+                    "font": "D_TITLE",
+                    "x": "(w-tw)/2",
+                    "y": 120
+
+                },
+                {
+                    "text": "${heading_sub}",
+                    "font": "D_TITLE",
+                    "x": "(w-tw)/2",
+                    "y": "h-th-120"
+
+                }
+            ]
+        },
+        "verbose": {
+            "items": [
+                { "text": "Frame", "font": "V_SUB", "x": 40, "y": 30 },
+                {
+                    "text": "%{eif:n:d:3}",
+                    "start_number": "${frame_start}",
+                    "font": "V_TITLE",
+                    "x": 40,
+                    "y": 65
+                },
+                {
+                    "text": "${heading_sub}",
+                    "font": "V_CENTER_SUB",
+                    "x": "(w-tw)/2",
+                    "y": 80
+                },
+                {
+                    "text": "${heading_title}",
+                    "font": "V_CENTER_TITLE",
+                    "x": "(w-tw)/2",
+                    "y": 30
+                },
+                {
+                    "text": "${info_1}",
+                    "font": "V_INFO",
+                    "x": "w-tw-40",
+                    "y": 50
+                },
+                {
+                    "text": "${info_2}",
+                    "font": "V_INFO",
+                    "x": "w-tw-40",
+                    "y": 85
+                },
+                { "text": "SMPTE", "font": "V_SUB", "x": 40, "y": 150 },
+                {
+                    "timecode": "${timecode_start}",
+                    "rate": "${fps_rate}",
+                    "font": "V_TITLE",
+                    "x": 40,
+                    "y": 185
+                },
+                {
+                    "text": "MediaTime",
+                    "font": "V_SUB",
+                    "x": "w-tw-40",
+                    "y": 150
+                },
+                {
+                    "text": "%{pts:hms}",
+                    "font": "V_TITLE",
+                    "x": "w-tw-40",
+                    "y": 185
+                }
+            ]
+        }
+    }
+}
