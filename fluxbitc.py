@@ -247,7 +247,12 @@ def build_userdata_from_metadata(
         fps = int(fps)
 
     info_1 = f"{video_stream['width']}x{video_stream['height']}, {fps} FPS"
-    info_2 = f"{video_stream['codec_name']}, {video_stream['color_range']}, {video_stream['pix_fmt']}"
+
+    color_info = video_stream.get("color_range", "")
+    if color_info != "":
+        color_info += ", "
+
+    info_2 = f"{video_stream['codec_name']}, {color_info}{video_stream['pix_fmt']}"
 
     return {
         "frame_start": "0",
@@ -298,7 +303,7 @@ def build_ffmpeg_command(
     )
 
     # audio stream processing
-    if args.audio_codec != "off":
+    if args.audio_codec != "off" and audio_stream is not None:
         cmd += ["-map", f"0:{audio_stream['index']}"]
         if args.audio_codec != "auto":
             cmd += ["-c:a", args.audio_codec]
