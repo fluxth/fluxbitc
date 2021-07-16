@@ -59,6 +59,21 @@ All the settings are customizable, too!
 
 ![Verbose Preset Customized](https://raw.githubusercontent.com/fluxTH/fluxbitc/main/docs/screenshot_verbose_custom.png)
 
+To encode the output file to a different video and audio codec, use:
+```bash
+./fluxbitc.py -i input.mp4 -vc hevc_videotoolbox -vb 5M -ac aac_at -ab 128k output.mov
+```
+
+To discard the audio completely, use:
+```bash
+./fluxbitc.py -i input.mp4 output.mov -ac off
+```
+
+To force an output file container format, use:
+```bash
+./fluxbitc.py -i input.mp4 output.ts --container mpegts
+```
+
 Feel free to play around! Consult the Usage section and the `config.json` file for more info :)
 
 ## Usage
