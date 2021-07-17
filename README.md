@@ -2,6 +2,8 @@
 
 A burn-in timecode and video conversion utility for post-production proxy makers
 
+*See the [Examples](https://github.com/fluxTH/fluxbitc/blob/main/README.md#examples) section for usage guides and screenshots.*
+
 ## Features
 
 - Automatic timecode detection from timecode stream embedded in the source video file
@@ -133,7 +135,7 @@ Feel free to play around! Consult the Usage section and the `config.json` file f
 
 For usage guide and help messages, use:
 ```bash
-./fluxbitc -h
+./fluxbitc.py --help
 ```
 
 The usage guide should appear:
