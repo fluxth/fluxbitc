@@ -2,7 +2,7 @@
 
 A burn-in timecode and video conversion utility for post-production proxy makers
 
-*See the [Examples](https://github.com/fluxTH/fluxbitc/blob/main/README.md#examples) section for usage guides and screenshots.*
+*See the [Examples](#examples) section for usage guides and screenshots.*
 
 ## Features
 
@@ -21,7 +21,7 @@ A burn-in timecode and video conversion utility for post-production proxy makers
 
 ### Download
 
-Clone this repository or [get the latest zipball here](https://github.com/fluxTH/fluxbitc/archive/refs/heads/main.zip).
+Clone this repository or [get the latest zipped release here](https://github.com/fluxTH/fluxbitc/archive/refs/heads/main.zip).
 
 ### Dependencies
 
