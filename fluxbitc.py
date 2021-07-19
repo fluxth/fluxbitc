@@ -403,28 +403,30 @@ def build_overlay_flags(
 
     for item in preset["items"]:
         filters = []
-        for k, v in item.items():
-            v = str(v)
+        for key, value in item.items():
+            value = str(value)
 
-            if k == "font":
-                if v in fonts.keys():
-                    for fk, fv in fonts[v].items():
+            if key == "font":
+                if value in fonts.keys():
+                    for fk, fv in fonts[value].items():
                         filters.append(f"{fk}={fv}")
 
             # Replace ${} with userdata
-            for uk, uv in userdata.items():
-                target = "${" + uk + "}"
-                if target in v:
-                    v = v.replace(target, uv)
+            if "${" in value:
+                # TODO: This is very inefficient when userdata is large, fix this!
+                for uk, uv in userdata.items():
+                    target = "${" + uk + "}"
+                    if target in value:
+                        value = value.replace(target, uv)
 
-            # escape : and , in vf
-            v = v.replace(":", "\\:")
-            v = v.replace(",", "\\,")
+            # escape : and , in value in vf command
+            value = value.replace(":", "\\:")
+            value = value.replace(",", "\\,")
 
-            if k == "text" or k == "timecode":
-                filters.append(f"{k}='{v}'")
+            if key == "text" or key == "timecode":
+                filters.append(f"{key}='{value}'")
             else:
-                filters.append(f"{k}={v}")
+                filters.append(f"{key}={value}")
 
         drawtexts.append(":".join(filters))
 
