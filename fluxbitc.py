@@ -86,7 +86,7 @@ def main() -> int:
 
     # select first stream
     # TODO: Add option to select stream from media file
-    for stream in metadata.get("streams"):
+    for stream in metadata.get("streams", []):
         if video_stream is None and stream["codec_type"] == "video":
             video_stream = stream
             continue
