@@ -257,7 +257,7 @@ def build_userdata_from_metadata(
     if "/" in fps:
         fps_n, fps_d = fps.split("/")
         if fps_d == "1":
-            fps = int(fps)
+            fps = int(fps_n)
         else:
             fps = float(fps_n) / float(fps_d)
             fps = round(fps, 3)
